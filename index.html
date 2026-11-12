@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MM WBCS ACADEMY 9732974125 WBPSC-CLERKSHIP ONLINE MOCK TEST 4</title>
+  <style>
+    :root {
+      --primary: #1a73e8;
+      --success: #28a745;
+      --danger: #dc3545;
+      --dark: #202124;
+      --light: #f8f9fa;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f2f5;
+      color: var(--dark);
+    }
+    header {
+      background-color: var(--primary);
+      color: white;
+      padding: 15px 20px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+    .timer-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #e8f0fe;
+      padding: 10px 20px;
+      font-weight: bold;
+      color: #1967d2;
+      border-bottom: 1px solid #d2e3fc;
+    }
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .login-box, .result-card {
+      max-width: 450px;
+      margin: 40px auto;
+      padding: 25px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 10px;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+    .question-card {
+      margin-bottom: 25px;
+      padding: 15px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      background: #fafafa;
+    }
+    .question-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .options-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .options-list li {
+      margin-bottom: 8px;
+    }
+    .options-list label {
+      display: block;
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: white;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .options-list input[type="radio"] {
+      margin-right: 10px;
+    }
+    /* Preview Mode Styling */
+    .preview-mode .correct-ans {
+      color: var(--success) !important;
+      font-weight: bold;
+      border-color: var(--success) !important;
+      background-color: #d4edda !important;
+    }
+    .preview-mode .wrong-ans {
+      color: var(--danger) !important;
+      font-weight: bold;
+      border-color: var(--danger) !important;
+      background-color: #f8d7da !important;
+    }
+    .hidden {
+      display: none;
+    }
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+    .summary-table td, .summary-table th {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    .preview-header-banner {
+      background: #e8f0fe;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-weight: bold;
+      display: none;
+    }
+    .preview-mode .preview-header-banner {
+      display: block;
+    }
+    @media print {
+      header, .timer-bar, .no-print {
+        display: none !important;
+      }
+      body {
+        background: white;
+      }
+      .container {
+        box-shadow: none;
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>MM WBCS ACADEMY 9732974125 WBPSC-CLERKSHIP ONLINE MOCK TEST 4</h1>
+  </header>
+
+  <!-- Login Section -->
+  <div id="login-section" class="login-box">
+    <h2>Student Login</h2>
+    <div class="form-group">
+      <label for="student-phone">Mobile number</label>
+      <input type="tel" id="student-phone" placeholder="Enter 10-digit mobile number">
+    </div>
+    <div class="form-group">
+      <label for="student-name">Full Name (For Record)</label>
+      <input type="text" id="student-name" placeholder="Enter your full name">
+    </div>
+    <button onclick="startExam()">Verify & Start Test</button>
+    <p id="login-error" style="color: red; margin-top: 10px;"></p>
+  </div>
+
+  <!-- Test & Preview Container -->
+  <div id="test-section" class="hidden">
+    <div class="timer-bar no-print">
+      <span id="user-display"></span>
+      <span>Time Remaining: <span id="timer">90:00</span></span>
+    </div>
+    <div class="container">
+      <div id="preview-banner" class="preview-header-banner">
+        Student Name: <span id="preview-student-name"></span> | Mobile: <span id="preview-student-phone"></span>
+        <button onclick="window.print()" style="margin-top: 10px; background-color: #28a745; width: auto; padding: 8px 16px;">Download / Print Preview</button>
+      </div>
+      <form id="quiz-form">
+        <div id="questions-container"></div>
+        <button type="button" id="submit-btn" onclick="submitExam()" class="no-print" style="margin-top: 20px;">Submit Test</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Result Summary Section -->
+  <div id="result-section" class="hidden">
+    <div class="result-card">
+      <h2>Test Result Summary</h2>
+      <table class="summary-table">
+        <tr><th>Student Name</th><td id="res-name"></td></tr>
+        <tr><th>Mobile Number</th><td id="res-phone"></td></tr>
+        <tr><th>Total Questions</th><td>100</td></tr>
+        <tr><th>Correct Answers (+1)</th><td id="res-correct" style="color: green; font-weight: bold;"></td></tr>
+        <tr><th>Wrong Answers (-0.25)</th><td id="res-wrong" style="color: red; font-weight: bold;"></td></tr>
+        <tr><th>Unattempted</th><td id="res-unattempted"></td></tr>
+        <tr><th>Final Score</th><td id="res-score" style="font-size: 1.2rem; font-weight: bold;"></td></tr>
+      </table>
+      <button onclick="enablePreview()" class="no-print">Preview Answers & Download</button>
+    </div>
+  </div>
+
+  <script>
+    // Configuration - Replace with your new Web App URL after deployment
+    const APP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0t1DSTnAtsjnIpxKBXvR9-9p5zNfj2nxEAqFb0iaYT36c6_ergUODVGzzL7d6HdRnkQ/exec";
+
+    const questions = [
+      { id: 1, q: "Choose the correctly spelt word.", options: ["A) Acquiescence", "B) Acquiscence", "C) Acquiescense", "D) Acquescence"], ans: "A" },
+      { id: 2, q: "Choose the synonym of 'Obdurate'.", options: ["A) Flexible", "B) Stubborn", "C) Generous", "D) Indifferent"], ans: "B" },
+      { id: 3, q: "Choose the antonym of 'Mitigate'.", options: ["A) Alleviate", "B) Relieve", "C) Aggravate", "D) Moderate"], ans: "C" },
+      { id: 4, q: "Fill in the blank: Neither the principal nor the teachers ___ willing to accept the proposal.", options: ["A) Was", "B) Is", "C) Were", "D) Has been"], ans: "C" },
+      { id: 5, q: "Choose the correct idiom: To throw down the gauntlet means—", options: ["A) To accept defeat", "B) To issue a challenge", "C) To avoid responsibility", "D) To make a compromise"], ans: "B" },
+      { id: 6, q: "Choose the one-word substitution: A person who compiles a dictionary is called a—", options: ["A) Biographer", "B) Lexicographer", "C) Calligrapher", "D) Geographer"], ans: "B" },
+      { id: 7, q: "Identify the error: Each of the candidates / have submitted / the required documents / No error.", options: ["A) Each of the candidates", "B) Have submitted", "C) The required documents", "D) No error"], ans: "B" },
+      { id: 8, q: "Choose the correct preposition: The accused was acquitted ___ all charges.", options: ["A) From", "B) Off", "C) Of", "D) With"], ans: "C" },
+      { id: 9, q: "Choose the correct passive voice: People believe that he is an honest officer.", options: ["A) He is believed to be an honest officer.", "B) He was believed as an honest officer.", "C) He has believed to be an honest officer.", "D) He is believing to be an honest officer."], ans: "A" },
+      { id: 10, q: "Choose the word nearest in meaning to 'Ubiquitous'.", options: ["A) Rare", "B) Omnipresent", "C) Temporary", "D) Invisible"], ans: "B" },
+      { id: 11, q: "Choose the correct indirect speech: He said to me, \"Had I known the truth, I would have helped you.\"", options: ["A) He told me that if he had known the truth, he would have helped me.", "B) He told me that had he known the truth, he would help me.", "C) He said me that if he knew the truth, he would have helped me.", "D) He told me that if he knows the truth, he will help me."], ans: "A" },
+      { id: 12, q: "Choose the correct sentence.", options: ["A) Scarcely had he reached the station than the train left.", "B) Scarcely he had reached the station when the train left.", "C) Scarcely had he reached the station when the train left.", "D) Scarcely did he reached the station when the train left."], ans: "C" },
+      { id: 13, q: "Choose the antonym of 'Parsimonious'.", options: ["A) Miserly", "B) Frugal", "C) Lavish", "D) Economical"], ans: "C" },
+      { id: 14, q: "Select the correct meaning of the phrase 'To read between the lines'.", options: ["A) To read quickly", "B) To understand the hidden meaning", "C) To read aloud", "D) To skip unnecessary words"], ans: "B" },
+      { id: 15, q: "Fill in the blank: It is high time we ___ measures to control pollution.", options: ["A) Take", "B) Took", "C) Have taken", "D) Will take"], ans: "B" },
+      { id: 16, q: "Choose the correct transformation: No other city in India is as populous as Mumbai.", options: ["A) Mumbai is more populous than any other city in India.", "B) Mumbai is the most populous city in India.", "C) Mumbai is as populous as all cities in India.", "D) Option A) and B) Both are correct."], ans: "B" },
+      { id: 17, q: "Identify the correct sentence.", options: ["A) The number of applicants are increasing every year.", "B) A number of applicants is increasing every year.", "C) The number of applicants is increasing every year.", "D) The number of applicants have increased every year."], ans: "C" },
+      { id: 18, q: "Choose the correct word: The judge's decision was based on ___ evidence.", options: ["A) Incontrovertible", "B) Incredulous", "C) Inconspicuous", "D) Incompatible"], ans: "A" },
+      { id: 19, q: "Choose the correct pair of words: The new policy may ___ economic growth, but its long-term ___ remains uncertain.", options: ["A) Effect, affect", "B) Affect, effect", "C) Affect, affect", "D) Effect, effect"], ans: "B" },
+      { id: 20, q: "Choose the correct meaning of 'A Pyrrhic victory'.", options: ["A) A victory achieved without effort", "B) A victory involving enormous cost or loss", "C) A victory achieved through deception", "D) An unexpected defeat"], ans: "B" },
+      { id: 21, q: "Choose the correct sentence.", options: ["A) Had I knew about the meeting, I would have attended it.", "B) Had I known about the meeting, I would have attended it.", "C) If I had knew about the meeting, I would attend it.", "D) Had I know about the meeting, I would have attended it."], ans: "B" },
+      { id: 22, q: "Identify the correctly punctuated sentence.", options: ["A) The officer said \"The matter, however, requires further investigation.\"", "B) The officer said, \"The matter, however, requires further investigation.\"", "C) The officer said \"The matter however requires further investigation\".", "D) The officer said, \"The matter however requires further investigation\"."], ans: "B" },
+      { id: 23, q: "Choose the correct one-word substitution: A statement that contradicts itself is called—", options: ["A) Paradox", "B) Parable", "C) Parody", "D) Paraphrase"], ans: "A" },
+      { id: 24, q: "Choose the synonym of 'Equivocal'.", options: ["A) Unambiguous", "B) Ambiguous", "C) Definite", "D) Explicit"], ans: "B" },
+      { id: 25, q: "Identify the error: The committee / discussed about the proposal / at length / No error.", options: ["A) The committee", "B) Discussed about the proposal", "C) At length", "D) No error"], ans: "B" },
+      { id: 26, q: "Choose the correct passive construction: They made him resign from the post.", options: ["A) He was made resign from the post.", "B) He was made to resign from the post.", "C) He had been made resign from the post.", "D) He was made resigned from the post."], ans: "B" },
+      { id: 27, q: "Fill in the blank: The more you practise, ___ you become.", options: ["A) Better", "B) The better", "C) Best", "D) The best"], ans: "B" },
+      { id: 28, q: "Choose the correct meaning of 'To bell the cat'.", options: ["A) To perform an easy task", "B) To undertake a dangerous task", "C) To create unnecessary trouble", "D) To expose a secret"], ans: "B" },
+      { id: 29, q: "Choose the antonym of 'Intransigent'.", options: ["A) Uncompromising", "B) Rigid", "C) Conciliatory", "D) Obstinate"], ans: "C" },
+      { id: 30, q: "Fill in the blank: Not until the documents had been verified ___ the payment.", options: ["A) The authority released", "B) Did the authority release", "C) The authority had released", "D) Had the authority release"], ans: "B" },
+      { id: 31, q: "ভারতের সংবিধানের কোন অনুচ্ছেদে অর্থবিলের সংজ্ঞা দেওয়া হয়েছে?", options: ["A) Article 108", "B) Article 110", "C) Article 112", "D) Article 117"], ans: "B" },
+      { id: 32, q: "ভারতের সংবিধানের কোন তফসিলে দলত্যাগ বিরোধী আইন অন্তর্ভুক্ত রয়েছে?", options: ["A) 8th Schedule", "B) 9th Schedule", "C) 10th Schedule", "D) 11th Schedule"], ans: "C" },
+      { id: 33, q: "বাংলায় দ্বৈত শাসন ব্যবস্থা কে প্রবর্তন করেছিলেন?", options: ["A) লর্ড কর্নওয়ালিস", "B) রবার্ট ক্লাইভ", "C) ওয়ারেন হেস্টিংস", "D) লর্ড ওয়েলেসলি"], ans: "B" },
+      { id: 34, q: "ইলবার্ট বিল বিতর্ক কোন ভাইসরয়ের শাসনকালে সংঘটিত হয়েছিল?", options: ["A) লর্ড লিটন", "B) লর্ড রিপন", "C) লর্ড ডাফরিন", "D) লর্ড কার্জন"], ans: "B" },
+      { id: 35, q: "পশ্চিমবঙ্গের কোন নদীকে 'বাংলার দুঃখ' বলা হয়?", options: ["A) তিস্তা", "B) দামোদর", "C) অজয়", "D) ময়ূরাক্ষী"], ans: "B" },
+      { id: 36, q: "২০২৬ সালের নভেম্বর মাসে Geological Survey of India (GSI)-এর ৫৫তম Director General হিসেবে কে দায়িত্ব গ্রহণ করেন?", options: ["A. অজয় কুমার", "B. দিনেশ ভি. গণবীর", "C. রাজীব কুমার", "D. সঞ্জয় মালহোত্রা"], ans: "B" },
+      { id: 37, q: "মানবদেহে ইনসুলিন কোন কোষ থেকে নিঃসৃত হয়?", options: ["A) আলফা কোষ", "B) বিটা কোষ", "C) ডেল্টা কোষ", "D) গামা কোষ"], ans: "B" },
+      { id: 38, q: "'Operation Flood' কর্মসূচির সঙ্গে কোন ব্যক্তি বিশেষভাবে যুক্ত?", options: ["A) এম. এস. স্বামীনাথন", "B) ভার্গিস কুরিয়েন", "C) নরম্যান বোরলগ", "D) হোমি ভাবা"], ans: "B" },
+      { id: 39, q: "ভারতের সংবিধানে মৌলিক কর্তব্য কোন সংশোধনীর মাধ্যমে যুক্ত হয়?", options: ["A) 24th Amendment", "B) 42nd Amendment", "C) 44th Amendment", "D) 52nd Amendment"], ans: "B" },
+      { id: 40, q: "ভারতের প্রথম মহিলা রাজ্যপাল কে ছিলেন?", options: ["A) বিজয়লক্ষ্মী পণ্ডিত", "B) সরোজিনী নাইডু", "C) সুচেতা কৃপালনী", "D) পদ্মজা নাইডু"], ans: "B" },
+      { id: 41, q: "রায়তওয়ারি বন্দোবস্তের সঙ্গে কোন ব্যক্তির নাম বিশেষভাবে যুক্ত?", options: ["A) লর্ড কর্নওয়ালিস", "B) থমাস মুনরো", "C) লর্ড ওয়েলেসলি", "D) জন শোর"], ans: "B" },
+      { id: 42, q: "1857 সালের বিদ্রোহের সময় মুঘল সম্রাট কে ছিলেন?", options: ["A) আকবর II", "B) বাহাদুর শাহ II", "C) শাহ আলম II", "D) জাহাঙ্গীর"], ans: "B" },
+      { id: 43, q: "ভারতীয় জাতীয় কংগ্রেসের প্রথম অধিবেশনের সভাপতি কে ছিলেন?", options: ["A) দাদাভাই নওরোজি", "B) উমেশচন্দ্র বন্দ্যোপাধ্যায়", "C) বদরুদ্দিন তায়েবজি", "D) ফিরোজশাহ মেহতা"], ans: "B" },
+      { id: 44, q: "ভারতের কোন রাজ্যে জগদীশপুরের ঐতিহাসিক বিদ্রোহের নেতা কুনওয়ার সিং সক্রিয় ছিলেন?", options: ["A) উত্তরপ্রদেশ", "B) বিহার", "C) মধ্যপ্রদেশ", "D) রাজস্থান"], ans: "B" },
+      { id: 45, q: "ভারতের পশ্চিমবঙ্গের সঙ্গে বাংলাদেশের সীমান্তের দৈর্ঘ্য প্রায় কত?", options: ["A) 1,096 km", "B) 1,500 km", "C) 2,217 km", "D) 3,100 km"], ans: "C" },
+      { id: 46, q: "ভারতের কোন নদীটি পশ্চিমঘাট পর্বতমালার পূর্ব ঢাল থেকে উৎপন্ন হয়ে বঙ্গোপসাগরে পতিত হয়েছে?", options: ["A) নর্মদা", "B) তাপ্তি", "C) গোদাবরী", "D) পেরিয়ার"], ans: "C" },
+      { id: 47, q: "ভারতের কোন মাটিতে তুলা চাষ সবচেয়ে উপযোগী?", options: ["A) পলিমাটি", "B) কৃষ্ণ মৃত্তিকা", "C) ল্যাটেরাইট মৃত্তিকা", "D) মরু মৃত্তিকা"], ans: "B" },
+      { id: 48, q: "ভারতীয় সংবিধানের কোন অনুচ্ছেদে সাংবিধানিক প্রতিকারের অধিকার রয়েছে?", options: ["A) Article 19", "B) Article 21", "C) Article 32", "D) Article 44"], ans: "C" },
+      { id: 49, q: "ভারতের নিয়ন্ত্রক ও মহাহিসাব পরীক্ষক (CAG)-এর পদটি কোন অনুচ্ছেদে উল্লেখ রয়েছে?", options: ["A) Article 124", "B) Article 148", "C) Article 280", "D) Article 324"], ans: "B" },
+      { id: 50, q: "অর্থ কমিশন (Finance Commission) কত বছর অন্তর গঠিত হওয়ার সাংবিধানিক বিধান রয়েছে?", options: ["A) 3 বছর", "B) 4 বছর", "C) 5 বছর", "D) 6 বছর"], ans: "C" },
+      { id: 51, q: "'Open Market Operations' বলতে কী বোঝায়?", options: ["A) বাণিজ্যিক ব্যাঙ্কের মধ্যে ঋণ প্রদান", "B) RBI কর্তৃক সরকারি সিকিউরিটি ক্রয়-বিক্রয়", "C) বিদেশি মুদ্রার আমদানি", "D) শেয়ারবাজারে সাধারণ বিনিয়োগ"], ans: "B" },
+      { id: 52, q: "ভারতের GDP-তে কোন ক্ষেত্রটি সাধারণত সর্বাধিক অবদান রাখে?", options: ["A) কৃষি", "B) শিল্প", "C) পরিষেবা", "D) খনন"], ans: "C" },
+      { id: 53, q: "নিচের কোনটি গ্রিনহাউস গ্যাস নয়?", options: ["A) মিথেন", "B) কার্বন ডাই-অক্সাইড", "C) নাইট্রাস অক্সাইড", "D) অক্সিজেন"], ans: "D" },
+      { id: 54, q: "'Ramsar Convention' মূলত কোন বিষয়ের সঙ্গে সম্পর্কিত?", options: ["A) মরুভূমি সংরক্ষণ", "B) জলাভূমি সংরক্ষণ", "C) বায়ুদূষণ নিয়ন্ত্রণ", "D) সামুদ্রিক বাণিজ্য"], ans: "B" },
+      { id: 55, q: "বিষ্ণুপুরের টেরাকোটা মন্দির কোন স্থাপত্যধারার সঙ্গে সম্পর্কিত?", options: ["A) দ্রাবিড়", "B) নাগর", "C) বাংলার আঞ্চলিক মন্দির স্থাপত্য", "D) ইন্দো-ইসলামিক"], ans: "C" },
+      { id: 56, q: "২০২৬ সালের পশ্চিমবঙ্গের সরকারি ঘোষণায় রাজ্যের গ্রামীণ পরিবারগুলির জন্য নিরাপদ পানীয় জলের পরিষেবার সঙ্গে কোন কর্মসূচি সম্পর্কিত?", options: ["A) Jal Jeevan Mission", "B) PM-KISAN", "C) PMAY-Urban", "D) UJALA"], ans: "A" },
+      { id: 57, q: "'People's Plan Campaign' মূলত কোন স্তরের পরিকল্পনা প্রণয়নের সঙ্গে সম্পর্কিত?", options: ["A) জেলা আদালত", "B) গ্রাম পঞ্চায়েত", "C) সংসদ", "D) রাজ্য বিধানসভা"], ans: "B" },
+      { id: 58, q: "ভারতের সংবিধানের কোন সংশোধনীর মাধ্যমে পঞ্চায়েত ব্যবস্থাকে সাংবিধানিক মর্যাদা দেওয়া হয়?", options: ["A) 42nd", "B) 44th", "C) 73rd", "D) 74th"], ans: "C" },
+      { id: 59, q: "কোন ঐতিহাসিক চুক্তির মাধ্যমে 1765 সালে ইস্ট ইন্ডিয়া কোম্পানি বাংলা, বিহার ও ওড়িশার দেওয়ানি লাভ করে?", options: ["A) এলাহাবাদের সন্ধি", "B) সুরাটের সন্ধি", "C) আলিনগরের সন্ধি", "D) বেসিনের সন্ধি"], ans: "A" },
+      { id: 60, q: "ভারতের কোন নদীকে 'দক্ষিণ ভারতের গঙ্গা' বলা হয়?", options: ["A) কৃষ্ণা", "B) কাবেরী", "C) গোদাবরী", "D) মহানদী"], ans: "C" },
+      { id: 61, q: "বায়ুমণ্ডলের কোন স্তরে অধিকাংশ আবহাওয়াজনিত ঘটনা ঘটে?", options: ["A) স্ট্র্যাটোস্ফিয়ার", "B) ট্রপোস্ফিয়ার", "C) মেসোস্ফিয়ার", "D) থার্মোস্ফিয়ার"], ans: "B" },
+      { id: 62, q: "'ব্লু বেবি সিনড্রোম' প্রধানত কোন দূষকের কারণে হতে পারে?", options: ["A) ফ্লুরাইড", "B) নাইট্রেট", "C) আর্সেনিক", "D) পারদ"], ans: "B" },
+      { id: 63, q: "নিচের কোনটি ভারতের একটি জীববৈচিত্র্য হটস্পটের অন্তর্গত?", options: ["A) থর মরুভূমি", "B) পশ্চিমঘাট", "C) দাক্ষিণাত্য মালভূমির শুষ্ক অঞ্চল", "D) পাঞ্জাব সমভূমি"], ans: "B" },
+      { id: 64, q: "২০২৬ সালের National Organ Transplant Games কোথায় উদ্বোধন করা হয়?", options: ["A. মুম্বাই", "B. কলকাতা", "C. নয়াদিল্লি", "D. চেন্নাই"], ans: "C" },
+      { id: 65, q: "Bharat Renewable Energy Summit & Expo 2026 কোথায় অনুষ্ঠিত হয়েছে?", options: ["A. মুম্বাই", "B. ভারত মণ্ডপম, নয়াদিল্লি", "C. হায়দরাবাদ", "D. বেঙ্গালুরু"], ans: "B" },
+      { id: 66, q: "ভারতের সংবিধানের কোন অংশে রাষ্ট্র পরিচালনার নির্দেশমূলক নীতিগুলি রয়েছে?", options: ["A) Part III", "B) Part IV", "C) Part IVA", "D) Part V"], ans: "B" },
+      { id: 67, q: "২০২৬ সালের ১ নভেম্বর কোন দুটি শহরের মধ্যে Vande Bharat Sleeper Express চালু করা হয়?", options: ["A. দিল্লি ও কলকাতা", "B. বেঙ্গালুরু ও মুম্বাই", "C. চেন্নাই ও হায়দরাবাদ", "D. কলকাতা ও গুয়াহাটি"], ans: "B" },
+      { id: 68, q: "ভারতে জাতীয় আয়ের প্রাক্কলন বর্তমানে কোন সংস্থা প্রকাশ করে?", options: ["A) RBI", "B) SEBI", "C) National Statistical Office (NSO)", "D) Finance Commission"], ans: "C" },
+      { id: 69, q: "২০২৬ সালের নভেম্বর মাসে IndiaAI Mission-এর অধীনে EKA-1 Foundation Model কোন সংস্থা তৈরি করেছে?", options: ["A. Soket", "B. Google", "C. Microsoft", "D. Infosys"], ans: "A" },
+      { id: 70, q: "ভারতীয় সংবিধানের 8th Schedule-এ বর্তমানে কতটি ভাষা অন্তর্ভুক্ত রয়েছে?", options: ["A) 18", "B) 20", "C) 22", "D) 24"], ans: "C" },
+      { id: 71, q: "784-এর 35% কত?", options: ["A) 264.4", "B) 274.4", "C) 284.4", "D) 294.4"], ans: "B" },
+      { id: 72, q: "0.625-কে সাধারণ ভগ্নাংশে প্রকাশ করলে কত হবে?", options: ["A) 3/8", "B) 5/8", "C) 7/8", "D) 9/16"], ans: "B" },
+      { id: 73, q: "8270-এর সঙ্গে সর্বনিম্ন কোন ধনাত্মক পূর্ণসংখ্যা যোগ করলে যোগফল 16 দ্বারা বিভাজ্য হবে?", options: ["A) 2", "B) 4", "C) 8", "D) 6"], ans: "A" },
+      { id: 74, q: "একটি পণ্যের ক্রয়মূল্য ₹800 এবং বিক্রয়মূল্য ₹920 হলে লাভের শতকরা হার কত?", options: ["A) 12%", "B) 15%", "C) 18%", "D) 20%"], ans: "B" },
+      { id: 75, q: "একটি নৌকা স্রোতের অনুকূলে ঘণ্টায় 11 কিমি এবং স্রোতের প্রতিকূলে ঘণ্টায় 5 কিমি গতিতে চলে। স্থির জলে নৌকাটির গতিবেগ কত?", options: ["A) 3 কিমি/ঘণ্টা", "B) 5 কিমি/ঘণ্টা", "C) 8 কিমি/ঘণ্টা", "D) 9 কিমি/ঘণ্টা"], ans: "C" },
+      { id: 76, q: "2টি সংখ্যার অনুপাত 5 : 7। প্রত্যেকটির সঙ্গে 12 যোগ করলে অনুপাত 7 : 9 হয়। ছোট সংখ্যাটি কত?", options: ["A) 24", "B) 30", "C) 36", "D) 42"], ans: "B" },
+      { id: 77, q: "একজন ব্যবসায়ী দুই ধরনের কফি যথাক্রমে প্রতি কুইন্টাল 8,000 টাকা এবং 10,000 টাকা দরে ক্রয় করেন। তিনি সেগুলি 10 : 6 অনুপাতে মিশ্রিত করেন। সম্পূর্ণ লেনদেনে 20% লাভ করতে হলে মিশ্রিত কফি প্রতি কুইন্টাল কত টাকায় বিক্রি করতে হবে?", options: ["A) 10,500 টাকা", "B) 3,500 টাকা", "C) 9,500 টাকা", "D) 10,200 টাকা"], ans: "A" },
+      { id: 78, q: "একটি সাইকেলের বাজারমূল্য 4,000 টাকা। বিক্রয়ের সময় পরপর 20% ও 10% ছাড় দেওয়া হলে ক্রেতা মোট কত টাকা সাশ্রয় করবেন?", options: ["A) 800 টাকা", "B) 320 টাকা", "C) 1,120 টাকা", "D) 480 টাকা"], ans: "C" },
+      { id: 79, q: "পিতা, মাতা ও পুত্রের বর্তমান বয়সের অনুপাত 6 : 5 : 1। যখন পুত্রের বয়স পিতার বর্তমান বয়সের সমান হবে, তখন তাঁদের তিনজনের বয়সের সমষ্টি হবে 135 বছর। মায়ের বর্তমান বয়স কত?", options: ["A) 30 বছর", "B) 36 বছর", "C) 25 বছর", "D) 35 বছর"], ans: "C" },
+      { id: 80, q: "একটি শহরের মোট জনসংখ্যা 6000। মোট জনসংখ্যার ³/₁₂ অংশ পুরুষ এবং বাকিরা মহিলা। যদি পুরুষদের 30% বিবাহিত হয়, তবে শহরের মোট জনসংখ্যার কত শতাংশ বিবাহিত পুরুষ?", options: ["A) 10%", "B) 15%", "C) 25%", "D) 7.5%"], ans: "D" },
+      { id: 81, q: "X, Y-এর দ্বিগুণ দক্ষ এবং তারা একসঙ্গে একটি কাজ 20 দিনে সম্পন্ন করতে পারে। X একা কাজটি কত দিনে সম্পন্ন করবে?", options: ["A) 22 দিন", "B) 30 দিন", "C) 35 দিন", "D) 40 দিন"], ans: "B" },
+      { id: 82, q: "একজন ব্যক্তি 84 মিনিটে 6 কিমি দূরত্ব অতিক্রম করার সিদ্ধান্ত নিলেন। তিনি দূরত্বের ⅔ অংশ 4 কিমি/ঘণ্টা গতিতে এবং বাকি অংশ অন্য একটি গতিতে অতিক্রম করবেন। বাকি অংশ অতিক্রম করার জন্য তাঁর গতিবেগ কত হওয়া প্রয়োজন?", options: ["A) 4.5 কিমি/ঘণ্টা", "B) 5 কিমি/ঘণ্টা", "C) 5.5 কিমি/ঘণ্টা", "D) 6 কিমি/ঘণ্টা"], ans: "B" },
+      { id: 83, q: "20 জন শ্রমিক একটি কাজ 10 দিনে সম্পন্ন করতে পারে। 5 দিন কাজ করার পর আরও 20 জন শ্রমিক কাজে যোগ দিল। তাহলে সম্পূর্ণ কাজটি শেষ করতে মোট কত দিন লাগবে?", options: ["A) 7.5 দিন", "B) 8 দিন", "C) 8.5 দিন", "D) 6 দিন"], ans: "A" },
+      { id: 84, q: "একটি ট্রেন 72 km/h বেগে চললে 250 মিটার দীর্ঘ একটি প্ল্যাটফর্ম অতিক্রম করতে 25 সেকেন্ড সময় নেয়। ট্রেনটির দৈর্ঘ্য কত?", options: ["A) 200 মিটার", "B) 225 মিটার", "C) 250 মিটার", "D) 300 মিটার"], ans: "C" },
+      { id: 85, q: "একটি আয়তক্ষেত্রের দৈর্ঘ্য 20% বৃদ্ধি এবং প্রস্থ 10% হ্রাস করা হলে ক্ষেত্রফলের শতকরা পরিবর্তন কত?", options: ["A) 8% বৃদ্ধি", "B) 8% হ্রাস", "C) 10% বৃদ্ধি", "D) 12% বৃদ্ধি"], ans: "A" },
+      { id: 86, q: "3টি ঘণ্টা যথাক্রমে 18, 24 ও 32 মিনিট অন্তর বাজে। সকাল 8টায় একসঙ্গে বাজার পর আবার কখন একসঙ্গে বাজবে?", options: ["A) সকাল 10:24", "B) সকাল 10:48", "C) সকাল 11:12", "D) দুপুর 12:48"], ans: "D" },
+      { id: 87, q: "একটি পণ্যের গায়ে ক্রয়মূল্যের 40% বেশি মূল্য ধার্য করা হলো। ধার্য মূল্যের উপর 15% ছাড় দিয়ে বিক্রি করলে লাভের হার কত?", options: ["A) 15%", "B) 17%", "C) 19%", "D) 21%"], ans: "C" },
+      { id: 88, q: "একটি নৌকা স্রোতের অনুকূলে 30 km যেতে 2 ঘণ্টা এবং প্রতিকূলে একই দূরত্ব যেতে 3 ঘণ্টা সময় নেয়। স্থির জলে নৌকার গতিবেগ কত?", options: ["A) 10 km/h", "B) 12.5 km/h", "C) 15 km/h", "D) 17.5 km/h"], ans: "B" },
+      { id: 89, q: "একজন ব্যবসায়ী দুটি দ্রব্য একই বিক্রয়মূল্যে বিক্রি করেন। একটিতে 20% লাভ এবং অন্যটিতে 20% ক্ষতি হয়। তাঁর মোট লাভ বা ক্ষতির হার কত?", options: ["A) 2% লাভ", "B) 4% ক্ষতি", "C) 5% ক্ষতি", "D) কোনো লাভ বা ক্ষতি নেই"], ans: "B" },
+      { id: 90, q: "একটি সংখ্যার 40% এবং 25%-এর পার্থক্য 180 হলে সংখ্যাটি কত?", options: ["A) 1,000", "B) 1,100", "C) 1,200", "D) 1,400"], ans: "C" },
+      { id: 91, q: "দুটি পাইপের সাহায্যে একটি ট্যাঙ্ক যথাক্রমে 20 মিনিট ও 24 মিনিটে ভর্তি করা যায়। একটি নিষ্কাশন পাইপ প্রতি মিনিটে 3 গ্যালন জল বের করে দেয়। তিনটি পাইপ একসঙ্গে কাজ করলে ট্যাঙ্কটি 15 মিনিটে ভর্তি হয়। ট্যাঙ্কটির ধারণক্ষমতা কত?", options: ["A) 60 গ্যালন", "B) 100 গ্যালন", "C) 120 গ্যালন", "D) 180 গ্যালন"], ans: "C" },
+      { id: 92, q: "দুটি সংখ্যার গরিষ্ঠ সাধারণ গুণনীয়ক 12 এবং লঘিষ্ঠ সাধারণ গুণিতক 720। একটি সংখ্যা 144 হলে অপর সংখ্যাটি কত?", options: ["A) 48", "B) 60", "C) 72", "D) 84"], ans: "B" },
+      { id: 93, q: "750 টাকা A, B, C এবং D-এর মধ্যে এমনভাবে ভাগ করা হলো যে, A-এর প্রাপ্ত অর্থ B ও C-এর মোট অর্থের সমান। B, C-এর থেকে 125 টাকা বেশি পায় এবং D, C-এর সমান অর্থ পায়। A কত টাকা পাবে?", options: ["A) 100 টাকা", "B) 225 টাকা", "C) 275 টাকা", "D) 325 টাকা"], ans: "D" },
+      { id: 94, q: "একটি ট্রেন 54 km/h বেগে চলার সময় 180 মিটার দীর্ঘ একটি ট্রেনকে বিপরীত দিক থেকে 12 সেকেন্ডে অতিক্রম করে। দ্বিতীয় ট্রেনটির দৈর্ঘ্য 240 মিটার হলে তার গতিবেগ কত?", options: ["A) 54 km/h", "B) 60 km/h", "C) 72 km/h", "D) 90 km/h"], ans: "C" },
+      { id: 95, q: "একটি মূলধনের উপর বার্ষিক 12% সরল সুদে 5 বছরের সুদ মূলধনের কত শতাংশ?", options: ["A) 40%", "B) 50%", "C) 60%", "D) 72%"], ans: "C" },
+      { id: 96, q: "5 জন পুরুষ অথবা 8 জন মহিলা একটি কাজ 24 দিনে সম্পন্ন করতে পারেন। 10 জন পুরুষ ও 8 জন মহিলা একসঙ্গে কাজটি কত দিনে সম্পন্ন করবেন?", options: ["A) 6 দিন", "B) 8 দিন", "C) 10 দিন", "D) 12 দিন"], ans: "D" },
+      { id: 97, q: "একটি সংখ্যাকে প্রথমে 20% বৃদ্ধি এবং পরে 25% হ্রাস করলে ফলাফল 720 হয়। মূল সংখ্যাটি কত?", options: ["A) 720", "B) 750", "C) 800", "D) 900"], ans: "C" },
+      { id: 98, q: "A ও B একটি ব্যবসায় যথাক্রমে ₹40,000 ও ₹50,000 বিনিয়োগ করেন। 4 মাস পরে A আরও ₹20,000 বিনিয়োগ করেন এবং 6 মাস পরে B তাঁর মূলধন থেকে ₹20,000 তুলে নেন। বছরের শেষে মোট লাভ 28,000 টাকা হলে A-এর লাভের অংশ কত?", options: ["A) ₹14,000", "B) ₹15,000", "C) ₹16,000", "D) ₹18,000"], ans: "C" },
+      { id: 99, q: "অনুপস্থিত সংখ্যাটি নির্ণয় করো:\n4, 9, 17, 35, ?, 139", options: ["A) 63", "B) 65", "C) 67", "D) 69"], ans: "D" },
+      { id: 100, q: "একটি গাড়ি মোট পথের প্রথম অর্ধেক 40 km/h এবং দ্বিতীয় অর্ধেক 60 km/h বেগে অতিক্রম করে। সমগ্র যাত্রার গড় গতিবেগ কত?", options: ["A) 45 km/h", "B) 48 km/h", "C) 50 km/h", "D) 52 km/h"], ans: "B" }
+    ];
+
+    let currentStudent = { name: "", phone: "" };
+    let timerInterval;
+    let timeRemaining = 90 * 60; // 90 mins in seconds
+
+    async function startExam() {
+      const phone = document.getElementById("student-phone").value.trim();
+      const name = document.getElementById("student-name").value.trim() || "Student";
+      const errorEl = document.getElementById("login-error");
+
+      if (!phone) {
+        errorEl.textContent = "Please enter your mobile number.";
+        return;
+      }
+
+      errorEl.textContent = "Verifying mobile number...";
+
+      try {
+        const response = await fetch(`${APP_SCRIPT_URL}?action=verify&phone=${phone}`);
+        const result = await response.json();
+
+        if (result.success) {
+          currentStudent = { name, phone };
+          document.getElementById("login-section").classList.add("hidden");
+          document.getElementById("test-section").classList.remove("hidden");
+          document.getElementById("user-display").textContent = `Student: ${name} (${phone})`;
+          document.getElementById("preview-student-name").textContent = name;
+          document.getElementById("preview-student-phone").textContent = phone;
+          renderQuestions();
+          startTimer();
+        } else {
+          errorEl.textContent = result.message;
+        }
+      } catch (err) {
+        errorEl.textContent = "Error connecting to the whitelist server. Please verify your Web App URL.";
+      }
+    }
+
+    function renderQuestions() {
+      const container = document.getElementById("questions-container");
+      container.innerHTML = questions.map(q => `
+        <div class="question-card" id="q-card-${q.id}">
+          <div class="question-title">${q.id}. ${q.q}</div>
+          <ul class="options-list">
+            ${q.options.map((opt, idx) => {
+              const optVal = String.fromCharCode(65 + idx);
+              return `
+                <li>
+                  <label id="lbl-${q.id}-${optVal}">
+                    <input type="radio" name="q_${q.id}" value="${optVal}">
+                    ${opt}
+                  </label>
+                </li>
+              `;
+            }).join("")}
+          </ul>
+        </div>
+      `).join("");
+    }
+
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        timeRemaining--;
+        const mins = Math.floor(timeRemaining / 60);
+        const secs = timeRemaining % 60;
+        document.getElementById("timer").textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+        if (timeRemaining <= 0) {
+          clearInterval(timerInterval);
+          submitExam();
+        }
+      }, 1000);
+    }
+
+    function submitExam() {
+      clearInterval(timerInterval);
+
+      let correct = 0;
+      let wrong = 0;
+      let unattempted = 0;
+
+      questions.forEach(q => {
+        const selected = document.querySelector(`input[name="q_${q.id}"]:checked`);
+        if (selected) {
+          if (selected.value === q.ans) {
+            correct++;
+          } else {
+            wrong++;
+          }
+        } else {
+          unattempted++;
+        }
+      });
+
+      const score = (correct * 1) - (wrong * 0.25);
+
+      document.getElementById("res-name").textContent = currentStudent.name;
+      document.getElementById("res-phone").textContent = currentStudent.phone;
+      document.getElementById("res-correct").textContent = correct;
+      document.getElementById("res-wrong").textContent = wrong;
+      document.getElementById("res-unattempted").textContent = unattempted;
+      document.getElementById("res-score").textContent = score.toFixed(2);
+
+      // Save Data to Google Sheet
+      fetch(APP_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: currentStudent.name,
+          phone: currentStudent.phone,
+          score: score,
+          correct: correct,
+          wrong: wrong,
+          unattempted: unattempted
+        })
+      });
+
+      document.getElementById("test-section").classList.add("hidden");
+      document.getElementById("result-section").classList.remove("hidden");
+    }
+
+    function enablePreview() {
+      document.getElementById("result-section").classList.add("hidden");
+      document.getElementById("test-section").classList.remove("hidden");
+      document.body.classList.add("preview-mode");
+
+      // Hide the Submit Test button completely during preview/download
+      document.getElementById("submit-btn").style.display = "none";
+
+      questions.forEach(q => {
+        const selected = document.querySelector(`input[name="q_${q.id}"]:checked`);
+        const correctLabel = document.getElementById(`lbl-${q.id}-${q.ans}`);
+        
+        if (correctLabel) {
+          correctLabel.classList.add("correct-ans");
+        }
+
+        if (selected && selected.value !== q.ans) {
+          const wrongLabel = document.getElementById(`lbl-${q.id}-${selected.value}`);
+          if (wrongLabel) {
+            wrongLabel.classList.add("wrong-ans");
+          }
+        }
+        
+        // Disable choices in preview mode
+        const inputs = document.querySelectorAll(`input[name="q_${q.id}"]`);
+        inputs.forEach(i => i.disabled = true);
+      });
+    }
+  </script>
+</body>
+</html>
